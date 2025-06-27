@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\DevTools\\Projects\\COSC2325-comparch\\welcome-project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0A5E8721-58AB-42CD-9E8B-649D2744B4CE}|welcome-project.vcxproj|C:\\DevTools\\Projects\\COSC2325-comparch\\welcome-project\\boilerplate.asm||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{0A5E8721-58AB-42CD-9E8B-649D2744B4CE}|welcome-project.vcxproj|solutionrelative:boilerplate.asm||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "boilerplate.asm",
+              "DocumentMoniker": "C:\\DevTools\\Projects\\COSC2325-comparch\\welcome-project\\boilerplate.asm",
+              "RelativeDocumentMoniker": "boilerplate.asm",
+              "ToolTip": "C:\\DevTools\\Projects\\COSC2325-comparch\\welcome-project\\boilerplate.asm",
+              "RelativeToolTip": "boilerplate.asm",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-27T11:07:26.686Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
