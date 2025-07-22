@@ -1,0 +1,68 @@
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    06/28/25 18:48:41
+work.asm						     Page 1 - 1
+
+
+				; Author: Simar Rekhi
+				; Date: 6-28-2025
+				; Description:
+				COMMENT ! 
+					add 5 to EAX register
+					add 5 to EDX register
+					then show usage in variable form
+				!
+
+				.386
+				.model flat, stdcall
+				.stack 4096
+				ExitProcess PROTO, dwExitCode:DWORD
+
+ 00000000			.code
+ 00000000			main PROC
+					
+ 00000000  83 C0 05			add EAX, 5  ; added 5 to EAX 
+ 00000003  83 C2 05			add EDX, 5  ; added 5 to EDX
+
+					INVOKE ExitProcess,0
+
+ 0000000D			main ENDP
+				END main
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    06/28/25 18:48:41
+work.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000000D DWord	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000000D Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+
+	   0 Warnings
+	   0 Errors
