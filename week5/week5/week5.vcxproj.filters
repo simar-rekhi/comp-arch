@@ -15,7 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="asgmt5.asm">
+    <MASM Include="asgmt5_1.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="asgmt5_2.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="asgmt5_3.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>

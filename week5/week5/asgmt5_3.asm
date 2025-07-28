@@ -1,57 +1,53 @@
 INCLUDE Irvine32.inc
-
 ; Author: Simar Rekhi
 ; Date: July 20, 2025
+; Course and Section: COSC 2325-003
 ; Description:
 COMMENT !
-    clear screen, locate cursor in the midddle, input two numbers, add and display sum
-    note - move to the middle before every display
+    Clear screen, center cursor, prompt for two integers, add, and display result.
+    Must move to center before every display.
 !
 
 .data
-prompt1 BYTE "Enter first integer: ", 0
-prompt2 BYTE "Enter second integer: ", 0
+prompt1   BYTE "Enter first integer: ", 0
+prompt2   BYTE "Enter second integer: ", 0
 resultMsg BYTE "The sum is: ", 0
-int1 DWORD ?
-int2 DWORD ?
-sum  DWORD ?
+int1      DWORD ?
+int2      DWORD ?
+sum       DWORD ?
 
 .code
 main PROC
-    ; Clear the screen
+    ; Clear screen
     call Clrscr
 
-    ; Move cursor to center for first prompt
-    mov dl, 12           ; row
-    mov dh, 30           ; column
+    ; --- First prompt ---
+    mov dh, 12     ; row
+    mov dl, 30     ; column
     call Gotoxy
-
-    ; Prompt and read first integer
     mov edx, OFFSET prompt1
     call WriteString
     call ReadInt
     mov int1, eax
 
-    ; Move to next line near center for second prompt
-    mov dl, 14           ; row
-    mov dh, 30           ; column
+    ; --- Second prompt ---
+    mov dh, 14
+    mov dl, 30
     call Gotoxy
-
     mov edx, OFFSET prompt2
     call WriteString
     call ReadInt
     mov int2, eax
 
-    ; Add the numbers
+    ; --- Add the numbers ---
     mov eax, int1
     add eax, int2
     mov sum, eax
 
-    ; Move to next line for result
-    mov dl, 16           ; row
-    mov dh, 30           ; column
+    ; --- Display result ---
+    mov dh, 16
+    mov dl, 30
     call Gotoxy
-
     mov edx, OFFSET resultMsg
     call WriteString
 
