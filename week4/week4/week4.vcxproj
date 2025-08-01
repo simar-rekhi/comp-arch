@@ -124,7 +124,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <MASM Include="asgmt4.asm" />
+    <MASM Include="asgmt4_1.asm" />
+    <MASM Include="asgmt4_2.asm" />
+    <MASM Include="asgmt4_3.asm" />
+    <MASM Include="asgmt4_4.asm" />
+    <MASM Include="asgmt4_main.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

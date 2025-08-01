@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="week6_1.asm" />
+    <MASM Include="week6_2.asm" />
+    <MASM Include="week6_3.asm" />
+    <MASM Include="week6_4.asm" />
+    <MASM Include="week6_main.asm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

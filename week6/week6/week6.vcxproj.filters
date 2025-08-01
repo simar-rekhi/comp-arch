@@ -15,7 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <MASM Include="week6_main.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
     <MASM Include="week6_1.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="week6_2.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="week6_3.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="week6_4.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
