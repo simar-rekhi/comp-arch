@@ -4,10 +4,9 @@
 ; Date: mm-dd-yyyy
 ; Description:
 COMMENT !
-	A = (A+B) - (C+D)
-	assign values to regs EAX, EBX, ECX, EDX
-	do the neccessary addition and subtraction work
-	mov the final result to A
+	symbolic constants in for days of the week
+	initialize an array variable in .data with the above constants
+	build successfully
 !
 
 ; ENVIRONMENT SETUP
@@ -16,22 +15,21 @@ COMMENT !
 .stack 4096
 ExitProcess PROTO, dwExitCode: DWORD
 
+;define constants
+
+MON = 1
+TUES = 2
+WED = 3
+THURS = 4
+FRI = 5
+SAT = 6
+SUN = 7
+
+.data
+	days BYTE MON, TUES, WED, THURS, FRI, SAT, SUN
 
 .code
 main PROC
-	; load values in each register
-	mov EAX, 20
-	mov EBX, 15
-	mov ECX, 10
-	mov EDX, 35
-
-	; move (A+B) to A and (C+D) to C
-	add EAX, EBX  ; EAX = A+B
-	add ECX, EDX  ; ECX = C+D
-
-	; subtract val(ECX) from val(EAX)
-	sub EAX, ECX
-
 	INVOKE ExitProcess, 0
 main ENDP
 END main
