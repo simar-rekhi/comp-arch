@@ -4,9 +4,8 @@
 ; Date: mm-dd-yyyy
 ; Description:
 COMMENT !
-	symbolic constants in for days of the week
-	initialize an array variable in .data with the above constants
-	build successfully
+	defining text literals
+	associating them with variables in memory
 !
 
 ; ENVIRONMENT SETUP
@@ -15,18 +14,15 @@ COMMENT !
 .stack 4096
 ExitProcess PROTO, dwExitCode: DWORD
 
-;define constants
+; defining string literals as symbolic constants
+msg1 TEXTEQU <"Hi! Nice to meet you!">
+msg2 TEXTEQU <"Have a look at our menu:">
 
-MON = 1
-TUES = 2
-WED = 3
-THURS = 4
-FRI = 5
-SAT = 6
-SUN = 7
 
 .data
-	days BYTE MON, TUES, WED, THURS, FRI, SAT, SUN
+	; allocating memory for our msg1 ad msg2 through variables txt1 and tx2
+	txt1 BYTE msg1,0
+	txt2 BYTE msg2,0
 
 .code
 main PROC
