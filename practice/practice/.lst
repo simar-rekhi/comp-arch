@@ -1,12 +1,13 @@
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:10:46
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:25:20
 ch4.asm							     Page 1 - 1
 
 
-				; Author:
-				; Date:
+				; Author
+				; Date
 				; Description:
 				COMMENT !
-					using loop to copy a string
+					MOV instructions to exchange upper and lower bits of a DWORD
+					12345678H becomes 56781234h
 				!
 
 				.386
@@ -15,35 +16,23 @@ ch4.asm							     Page 1 - 1
 				ExitProcess PROTO, dwExitCode: DWORD
 
  00000000			.data
- 00000000 69 20 6C 69 6B	str1 BYTE "i like pineapples",0
-	   65 20 70 69 6E
-	   65 61 70 70 6C
-	   65 73 00
- 00000012  00000012 [		str2  BYTE SIZEOF str1 DUP(0)
-	    00
-	   ]
-
+ 00000000 12345678			three DWORD 12345678h
 
  00000000			.code
  00000000			main PROC
-					
- 00000000  B9 00000012			mov ecx, SIZEOF str1 ; set the counter
- 00000005  BE 00000000			mov esi, 0
 
- 0000000A				L1:
- 0000000A  8A 86 00000000 R			mov al, str1[esi]
- 00000010  88 86 00000012 R			mov str2[esi], al
- 00000016  46					inc esi  ; alternatively, add esi, TYPE str1
- 00000017  E2 F1				LOOP L1
-					
-					INVOKE ExitProcess, 0
- 00000019  6A 00	   *	    push   +000000000h
- 0000001B  E8 00000000 E   *	    call   ExitProcess
- 00000020			main ENDP
+ 00000000  A1 00000000 R		mov eax, three ; EAX = 1234 5678
+ 00000005  66| 8B D0			mov dx, ax  ; store in DX the lower part of three ie 5678
+ 00000008  66| A1			mov ax, WORD PTR [three + 2] ; store in ax the higher part of three ie 1234
+	   00000002 R
+ 0000000E  66| A3			mov WORD PTR [three], ax 
+	   00000000 R
+ 00000014  66| 89 15			mov WORD PTR [three + 2], dx
+	   00000002 R
+
+ 0000001B			main ENDP
 				END main
-
-
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:10:46
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:25:20
 ch4.asm							     Symbols 2 - 1
 
 
@@ -55,8 +44,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 00000024 DWord	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 00000020 DWord	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000004 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001B DWord	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -64,8 +53,7 @@ Procedures, parameters, and locals:
                 N a m e                 Type     Value    Attr
 
 ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000020 Public STDCALL
-  L1 . . . . . . . . . . . . . .	L Near	 0000000A _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001B Public STDCALL
 
 
 Symbols:
@@ -81,8 +69,7 @@ Symbols:
 @fardata?  . . . . . . . . . . .	Text   	 FLAT
 @fardata . . . . . . . . . . . .	Text   	 FLAT
 @stack . . . . . . . . . . . . .	Text   	 FLAT
-str1 . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
-str2 . . . . . . . . . . . . . .	Byte	 00000012 _DATA	
+three  . . . . . . . . . . . . .	DWord	 00000000 _DATA	
 
 	   0 Warnings
 	   0 Errors
