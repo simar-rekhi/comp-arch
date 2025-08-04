@@ -2,8 +2,8 @@
 ; Date
 ; Description:
 COMMENT !
-	MOV instructions to exchange upper and lower bits of a DWORD
-	12345678H becomes 56781234h
+	in every pair in an array, swap values at even and odd pos
+	1, 2, 3, 4 => 2, 1, 4, 3
 !
 
 .386
@@ -12,17 +12,23 @@ COMMENT !
 ExitProcess PROTO, dwExitCode: DWORD
 
 .data
-	three DWORD 12345678h
+	arr BYTE 1, 2, 3, 4
 
 .code
 main PROC
 
-	mov eax, three ; EAX = 1234 5678
-	mov dx, ax  ; store in DX the lower part of three ie 5678
-	mov ax, WORD PTR [three + 2] ; store in ax the higher part of three ie 1234
-	mov WORD PTR [three], ax 
-	mov WORD PTR [three + 2], dx
-	mov eax, three
+	mov ECX, LENGTHOF arr
+	mov esi, 0
+
+	L1:
+		; exchange pos 1 and 2
+		mov al, arr[esi] ; al = 1
+		xchg arr[esi + 1], al ; al = 2 and arr[esi + 1] = 1
+		mov arr[esi], al ; arr[esi] = 2 ie exchange completed in a pair
+		add esi, 2 ; lets you shift the pointer to a new pair altogether
+		LOOP L1
+
+	INVOKE ExitProcess, 0
 
 main ENDP
 END main
