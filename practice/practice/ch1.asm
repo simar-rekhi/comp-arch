@@ -4,7 +4,10 @@
 ; Date: mm-dd-yyyy
 ; Description:
 COMMENT !
-	give a brief of the approach you will use to solve this question
+	A = (A+B) - (C+D)
+	assign values to regs EAX, EBX, ECX, EDX
+	do the neccessary addition and subtraction work
+	mov the final result to A
 !
 
 ; ENVIRONMENT SETUP
@@ -13,13 +16,22 @@ COMMENT !
 .stack 4096
 ExitProcess PROTO, dwExitCode: DWORD
 
-.data
-	; in case you have any memory storage 
 
 .code
 main PROC
-	
-	; actual code resides here
+	; load values in each register
+	mov EAX, 20
+	mov EBX, 15
+	mov ECX, 10
+	mov EDX, 35
 
+	; move (A+B) to A and (C+D) to C
+	add EAX, EBX  ; EAX = A+B
+	add ECX, EDX  ; ECX = C+D
+
+	; subtract val(ECX) from val(EAX)
+	sub EAX, ECX
+
+	INVOKE ExitProcess, 0
 main ENDP
 END main
