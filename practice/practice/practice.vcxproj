@@ -82,6 +82,12 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <MASM>
+      <EnableAssemblyGeneratedCodeListing>Yes</EnableAssemblyGeneratedCodeListing>
+    </MASM>
+    <MASM>
+      <AssembledCodeListingFile>$(practice).lst</AssembledCodeListingFile>
+    </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

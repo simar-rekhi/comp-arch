@@ -4,8 +4,9 @@
 ; Date: mm-dd-yyyy
 ; Description:
 COMMENT !
-	defining text literals
-	associating them with variables in memory
+	adds 5 to EAX
+	adds 5 to EDX
+	generate a listing file & examine machine code
 !
 
 ; ENVIRONMENT SETUP
@@ -14,18 +15,13 @@ COMMENT !
 .stack 4096
 ExitProcess PROTO, dwExitCode: DWORD
 
-; defining string literals as symbolic constants
-msg1 TEXTEQU <"Hi! Nice to meet you!">
-msg2 TEXTEQU <"Have a look at our menu:">
-
-
-.data
-	; allocating memory for our msg1 ad msg2 through variables txt1 and tx2
-	txt1 BYTE msg1,0
-	txt2 BYTE msg2,0
 
 .code
 main PROC
-	INVOKE ExitProcess, 0
+	; move values to EAX and EDX regs
+	mov EAX, 5
+	mov EDX, 5
+
+	INVOKE ExitProcess,0
 main ENDP
 END main
