@@ -2,9 +2,7 @@
 ; Date:
 ; Description:
 COMMENT !
-	given an array of DWORD: 1, 2, 3
-	rearranges values/ reverses order to: 3, 2, 1
-	using xchg, direct offset and some intermediate data transfer between registers
+	using LOOP compute the sum of elements in arrayD
 !
 
 .386
@@ -13,14 +11,20 @@ COMMENT !
 ExitProcess PROTO, dwExitCode: DWORD
 
 .data
-arrayD DWORD 1, 2, 3
+arrayD WORD 100h, 200h, 300h, 400h
 
 .code
 main PROC
-	mov EAX, [arrayD] ; EAX = 000000001h
-	xchg EAX, [arrayD + 8]  ; after exchange, EAX = 3 and [arrayD + 8] = 1
-	mov [arrayD], EAX ; [arrayD] = 3
-	; now, arrayD = 3, 2, 1
+	
+	mov ax, 0
+	mov edi, OFFSET arrayD ; stores address of first ele of arrayD
+	mov ecx, LENGTHOF arrayD ; for us, ecx = 4
+
+	L1:
+		add ax, [edi]
+		add edi, TYPE arrayD
+		LOOP L1
+	
 	INVOKE ExitProcess, 0
 main ENDP
 END main

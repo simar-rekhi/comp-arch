@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 03:58:17
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:00:57
 ch4.asm							     Page 1 - 1
 
 
@@ -6,9 +6,7 @@ ch4.asm							     Page 1 - 1
 				; Date:
 				; Description:
 				COMMENT !
-					given an array of DWORD: 1, 2, 3
-					rearranges values/ reverses order to: 3, 2, 1
-					using xchg, direct offset and some intermediate data transfer between registers
+					using LOOP compute the sum of elements in arrayD
 				!
 
 				.386
@@ -17,24 +15,29 @@ ch4.asm							     Page 1 - 1
 				ExitProcess PROTO, dwExitCode: DWORD
 
  00000000			.data
- 00000000 00000001		arrayD DWORD 1, 2, 3
-	   00000002
-	   00000003
+ 00000000 0100 0200 0300	arrayD WORD 100h, 200h, 300h, 400h
+	   0400
 
  00000000			.code
  00000000			main PROC
- 00000000  A1 00000000 R		mov EAX, [arrayD] ; EAX = 000000001h
- 00000005  87 05 00000008 R		xchg EAX, [arrayD + 8]  ; after exchange, EAX = 3 and [arrayD + 8] = 1
- 0000000B  A3 00000000 R		mov [arrayD], EAX ; [arrayD] = 3
-					; now, arrayD = 3, 2, 1
+					
+ 00000000  66| B8 0000			mov ax, 0
+ 00000004  BF 00000000 R		mov edi, OFFSET arrayD ; stores address of first ele of arrayD
+ 00000009  B9 00000004			mov ecx, LENGTHOF arrayD ; for us, ecx = 4
+
+ 0000000E				L1:
+ 0000000E  66| 03 07				add ax, [edi]
+ 00000011  83 C7 02				add edi, TYPE arrayD
+ 00000014  E2 F8				LOOP L1
+					
 					INVOKE ExitProcess, 0
- 00000010  6A 00	   *	    push   +000000000h
- 00000012  E8 00000000 E   *	    call   ExitProcess
- 00000017			main ENDP
+ 00000016  6A 00	   *	    push   +000000000h
+ 00000018  E8 00000000 E   *	    call   ExitProcess
+ 0000001D			main ENDP
 				END main
 
 
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 03:58:17
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:00:57
 ch4.asm							     Symbols 2 - 1
 
 
@@ -46,8 +49,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 0000000C DWord	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 00000017 DWord	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001D DWord	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -55,7 +58,8 @@ Procedures, parameters, and locals:
                 N a m e                 Type     Value    Attr
 
 ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000017 Public STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001D Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000E _TEXT	
 
 
 Symbols:
@@ -71,7 +75,7 @@ Symbols:
 @fardata?  . . . . . . . . . . .	Text   	 FLAT
 @fardata . . . . . . . . . . . .	Text   	 FLAT
 @stack . . . . . . . . . . . . .	Text   	 FLAT
-arrayD . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+arrayD . . . . . . . . . . . . .	Word	 00000000 _DATA	
 
 	   0 Warnings
 	   0 Errors
