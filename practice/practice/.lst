@@ -1,14 +1,6 @@
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:48:04
-ch4.asm							     Page 1 - 1
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 09:24:58
+ch5.asm							     Page 1 - 1
 
-
-				; Author
-				; Date
-				; Description:
-				COMMENT !
-					in every pair in an array, swap values at even and odd pos
-					1, 2, 3, 4 => 2, 1, 4, 3
-				!
 
 				.386
 				.model flat, stdcall
@@ -16,30 +8,41 @@ ch4.asm							     Page 1 - 1
 				ExitProcess PROTO, dwExitCode: DWORD
 
  00000000			.data
- 00000000 01 02 03 04			arr BYTE 1, 2, 3, 4
+ 00000000 41 62 72 61 68		aName BYTE "Abraham Lincoln",0
+	   61 6D 20 4C 69
+	   6E 63 6F 6C 6E
+	   00
+ 00000010 = 0000000F			nameSize = ($ - aName) - 1
 
  00000000			.code
  00000000			main PROC
-
- 00000000  B9 00000002			mov ECX, LENGTHOF arr/2
+					; push the name on the stack
+ 00000000  B9 0000000F			mov ecx, nameSize
  00000005  BE 00000000			mov esi, 0
 
- 0000000A				L1:
-						; exchange pos 1 and 2
- 0000000A  8A 86 00000000 R			mov al, arr[esi] ; al = 1
- 00000010  86 86 00000001 R			xchg arr[esi + 1], al ; al = 2 and arr[esi + 1] = 1
- 00000016  88 86 00000000 R			mov arr[esi], al ; arr[esi] = 2 ie exchange completed in a pair
- 0000001C  83 C6 02				add esi, 2 ; lets you shift the pointer to a new pair altogether
- 0000001F  E2 E9				LOOP L1
+ 0000000A  0F B6 86		L1: movzx eax, aName[esi]
+	   00000000 R
+ 00000011  50				push eax
+ 00000012  46				inc esi
+ 00000013  E2 F5			loop L1
 
-					INVOKE ExitProcess, 0
- 00000021  6A 00	   *	    push   +000000000h
- 00000023  E8 00000000 E   *	    call   ExitProcess
+				; start popping in reverse order
+ 00000015  B9 0000000F			mov ecx, nameSize
+ 0000001A  BE 00000000			mov esi, 0
 
- 00000028			main ENDP
+ 0000001F  58			L2: pop eax
+ 00000020  88 86 00000000 R		mov aName[esi], al
+ 00000026  46				inc esi
+ 00000027  E2 F6			loop L2
+
+					INVOKE ExitProcess,0
+ 00000029  6A 00	   *	    push   +000000000h
+ 0000002B  E8 00000000 E   *	    call   ExitProcess
+
+ 00000030			main ENDP
 				END main
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:48:04
-ch4.asm							     Symbols 2 - 1
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 09:24:58
+ch5.asm							     Symbols 2 - 1
 
 
 
@@ -50,8 +53,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 00000004 DWord	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 00000028 DWord	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000010 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000030 DWord	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -59,8 +62,9 @@ Procedures, parameters, and locals:
                 N a m e                 Type     Value    Attr
 
 ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000028 Public STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000030 Public STDCALL
   L1 . . . . . . . . . . . . . .	L Near	 0000000A _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000001F _TEXT	
 
 
 Symbols:
@@ -76,7 +80,8 @@ Symbols:
 @fardata?  . . . . . . . . . . .	Text   	 FLAT
 @fardata . . . . . . . . . . . .	Text   	 FLAT
 @stack . . . . . . . . . . . . .	Text   	 FLAT
-arr  . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+aName  . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+nameSize . . . . . . . . . . . .	Number	 0000000Fh   
 
 	   0 Warnings
 	   0 Errors

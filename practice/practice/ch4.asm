@@ -20,6 +20,7 @@ main PROC
 	mov ECX, LENGTHOF arr
 	mov esi, 0
 
+
 	L1:
 		; exchange pos 1 and 2
 		mov al, arr[esi] ; al = 1
