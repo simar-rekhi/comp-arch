@@ -1,4 +1,4 @@
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:00:57
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:10:46
 ch4.asm							     Page 1 - 1
 
 
@@ -6,7 +6,7 @@ ch4.asm							     Page 1 - 1
 				; Date:
 				; Description:
 				COMMENT !
-					using LOOP compute the sum of elements in arrayD
+					using loop to copy a string
 				!
 
 				.386
@@ -15,29 +15,35 @@ ch4.asm							     Page 1 - 1
 				ExitProcess PROTO, dwExitCode: DWORD
 
  00000000			.data
- 00000000 0100 0200 0300	arrayD WORD 100h, 200h, 300h, 400h
-	   0400
+ 00000000 69 20 6C 69 6B	str1 BYTE "i like pineapples",0
+	   65 20 70 69 6E
+	   65 61 70 70 6C
+	   65 73 00
+ 00000012  00000012 [		str2  BYTE SIZEOF str1 DUP(0)
+	    00
+	   ]
+
 
  00000000			.code
  00000000			main PROC
 					
- 00000000  66| B8 0000			mov ax, 0
- 00000004  BF 00000000 R		mov edi, OFFSET arrayD ; stores address of first ele of arrayD
- 00000009  B9 00000004			mov ecx, LENGTHOF arrayD ; for us, ecx = 4
+ 00000000  B9 00000012			mov ecx, SIZEOF str1 ; set the counter
+ 00000005  BE 00000000			mov esi, 0
 
- 0000000E				L1:
- 0000000E  66| 03 07				add ax, [edi]
- 00000011  83 C7 02				add edi, TYPE arrayD
- 00000014  E2 F8				LOOP L1
+ 0000000A				L1:
+ 0000000A  8A 86 00000000 R			mov al, str1[esi]
+ 00000010  88 86 00000012 R			mov str2[esi], al
+ 00000016  46					inc esi  ; alternatively, add esi, TYPE str1
+ 00000017  E2 F1				LOOP L1
 					
 					INVOKE ExitProcess, 0
- 00000016  6A 00	   *	    push   +000000000h
- 00000018  E8 00000000 E   *	    call   ExitProcess
- 0000001D			main ENDP
+ 00000019  6A 00	   *	    push   +000000000h
+ 0000001B  E8 00000000 E   *	    call   ExitProcess
+ 00000020			main ENDP
 				END main
 
 
-Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:00:57
+Microsoft (R) Macro Assembler Version 14.44.35211.0	    08/04/25 05:10:46
 ch4.asm							     Symbols 2 - 1
 
 
@@ -49,8 +55,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 0000001D DWord	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000024 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000020 DWord	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -58,8 +64,8 @@ Procedures, parameters, and locals:
                 N a m e                 Type     Value    Attr
 
 ExitProcess  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000001D Public STDCALL
-  L1 . . . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000020 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000A _TEXT	
 
 
 Symbols:
@@ -75,7 +81,8 @@ Symbols:
 @fardata?  . . . . . . . . . . .	Text   	 FLAT
 @fardata . . . . . . . . . . . .	Text   	 FLAT
 @stack . . . . . . . . . . . . .	Text   	 FLAT
-arrayD . . . . . . . . . . . . .	Word	 00000000 _DATA	
+str1 . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+str2 . . . . . . . . . . . . . .	Byte	 00000012 _DATA	
 
 	   0 Warnings
 	   0 Errors

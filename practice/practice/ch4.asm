@@ -2,7 +2,7 @@
 ; Date:
 ; Description:
 COMMENT !
-	using LOOP compute the sum of elements in arrayD
+	using loop to copy a string
 !
 
 .386
@@ -11,18 +11,20 @@ COMMENT !
 ExitProcess PROTO, dwExitCode: DWORD
 
 .data
-arrayD WORD 100h, 200h, 300h, 400h
+str1 BYTE "i like pineapples",0
+str2  BYTE SIZEOF str1 DUP(0)
+
 
 .code
 main PROC
 	
-	mov ax, 0
-	mov edi, OFFSET arrayD ; stores address of first ele of arrayD
-	mov ecx, LENGTHOF arrayD ; for us, ecx = 4
+	mov ecx, SIZEOF str1 ; set the counter
+	mov esi, 0
 
 	L1:
-		add ax, [edi]
-		add edi, TYPE arrayD
+		mov al, str1[esi]
+		mov str2[esi], al
+		inc esi  ; alternatively, add esi, TYPE str1
 		LOOP L1
 	
 	INVOKE ExitProcess, 0
