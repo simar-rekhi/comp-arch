@@ -81,12 +81,15 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Irvine</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Irvine32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <MASM>
       <EnableAssemblyGeneratedCodeListing>Yes</EnableAssemblyGeneratedCodeListing>
     </MASM>
     <MASM>
       <AssembledCodeListingFile>$(practice).lst</AssembledCodeListingFile>
+      <IncludePaths>C:\Irvine</IncludePaths>
     </MASM>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
