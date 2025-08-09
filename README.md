@@ -1,12 +1,27 @@
-﻿# COSC2325: Computer Architecture
+﻿# Computer Architecture: Assembly with MASM
+ A repo for weekly Assembly language coding projects using MASM on x86 architecture. Projects are implemented both in traditional assembly style and with the Irvine32 library.
 
-## Description:
-  Each folder depicts a weekly project that caters to COSC 2325 Computer Architecture class. Every .asm file contains the description associated with its content.
+## Overview
+This repo stores my assembly language projects and assignments primarily targeting x86 processors using MASM assembler. Early weeks focus on classical assembly programming, while from week 5 onwards the focus shifts towards using the Irvine32 library. 
 
-## Implementation:
-  Content of this repo is solely for the purpose of practice and reference. After downloading a folder, you can use the following to effectively work with the content: <br>
-    1. In Visual Studio Community, add .masm as a build dependency. <br>
-    2. Use the configuration: Debug mode, x86, then Local Windows Debugger. <br>
-    3. (optional) Following week 5, where we start using the Irvine library, you might want to add your .exe files to the _Excluded Files_ section of your Windows Security System or even turn off Firewall for the time you are building these files. <br>
-    4. Following week 5, you would want to configure several other steps to make sure Irvine library works seamlessly on your system. Makotto's video on [How to Setup MASM and Irvine32 in Visual Studio 2019
-]([url](https://youtu.be/bHmQJLXZf00?feature=shared&t=238)) explains it well. Definitely check it out. <br>
+## Setup
+To work with this repository, ensure you have:
+- An x86 processor-based system.
+- Visual Studio configured with MASM support.
+- Debug mode enabled for easier testing.
+
+## Visual Studio Configuration
+- Add .masm files extension in Build Customization > Build Dependencies for proper compilation.
+- To run individual .asm files, go to its Properties and set Exclude from Build to No to include that file in the build process.
+- For assemblies leveraging the Irvine32 library, follow the setup instructions in this tutorial by Makotto: https://youtu.be/bHmQJLXZf00?feature=shared
+
+## Troubleshooting
+Occasionally, building .asm files that use the Irvine32 library might fail due to antivirus conflicts. To fix this, try temporarily disabling real-time scanning on your antivirus:<br>
+Windows Security > Open McAfee > Real-Time Scanning > Turn off for 60 mins
+
+## Usage
+- Open the solution in Visual Studio.
+- Select the .asm file you want to build and run.
+- Ensure the file is included in the build as described above.
+- Build and debug as usual.
+
